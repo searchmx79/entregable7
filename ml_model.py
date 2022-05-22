@@ -4,10 +4,13 @@
 #
 # Debes de adaptar este script para integrar tu modelo predictivo.
 # =======================================================================================
+import pandas as pd
+import numpy as np
 from pandas import read_csv
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix
+import matplotlib.pyplot as plt
 import pickle
 
 
@@ -89,11 +92,19 @@ def get_confusion_matrix(predictions):
 
 # =======================================================================================
 
-def get_roc_curve(result_matrix):
-    """ Esta función obtiene la curva ROC  con las métricas que ya tienen calificación en la matriz
-        de confusión de desempeño del modelo.
-        :param result_matrix: La lista de predicciones calificadas
-        
+def get_roc_curve(model):
+    """ Esta función obtiene la curva ROC  con la regresión linean del desempeño del modelo.
+       :param model: la regresión lineal de las predicciones calificadas
+    """
+  #define metrics
+    y_pred_proba = model[::,1]
+    fpr, tpr, _ = metrics.roc_curve(0,  y_pred_proba)
+
+  #create ROC curve
+    plt.plot(fpr,tpr)
+    plt.ylabel('Rate positivo positivo')
+    plt.xlabel('Rate falso positivo')
+    plt.show()        
 
 
 if __name__ == '__main__':
